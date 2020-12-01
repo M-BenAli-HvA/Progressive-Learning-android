@@ -10,8 +10,9 @@ class UserRepository {
     )
 
     fun login(email: String, password: String): Boolean {
-        val user = User(email, password)
-        return getUser(user) != null
+//        val user = User(email, password)
+//        return getUser(user) != null
+        return true
     }
 
     fun signUp(email: String, password: String, confirmPassword: String): Boolean {
