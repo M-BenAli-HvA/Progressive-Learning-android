@@ -10,6 +10,9 @@
         android:name="com.example.progressivelearning_android.ui.DashboardFragment"
         android:label="@string/dashboard_fragment_label"
         tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_navigation_dashboard_to_collectionLearningGoalFragment"
+            app:destination="@id/collectionLearningGoalFragment" />
     </fragment>
 
     <fragment
@@ -62,5 +65,10 @@
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
+    <fragment
+
+        android:id="@+id/collectionLearningGoalFragment"
+        android:name="com.example.progressivelearning_android.ui.CollectionLearningGoalFragment"
+        android:label="LearningGoalDetail" />
 
 </navigation>

@@ -8,11 +8,19 @@ import com.example.progressivelearning_android.R
 import com.example.progressivelearning_android.model.LearningGoal
 import kotlinx.android.synthetic.main.item_learning_goal.view.*
 
-class LearningGoalAdapter(private val list: List<LearningGoal>):
+class LearningGoalAdapter(
+        private val learningGoals: List<LearningGoal>,
+        private val onClick: (LearningGoal) -> Unit
+):
         RecyclerView.Adapter<LearningGoalAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+        init {
+            itemView.setOnClickListener {
+                (onClick(learningGoals[adapterPosition]))
+            }
 
+        }
         fun databind(learningGoal: LearningGoal) {
             itemView.tv_title.text = learningGoal.title
             itemView.tv_progress.text = "${learningGoal.progress}%"
@@ -27,11 +35,11 @@ class LearningGoalAdapter(private val list: List<LearningGoal>):
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.databind(list[position])
+        holder.databind(learningGoals[position])
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return learningGoals.size
     }
 
 }
