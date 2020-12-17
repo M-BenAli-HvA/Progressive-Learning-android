@@ -1,6 +1,7 @@
 package com.example.progressivelearning_android
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import androidx.navigation.NavController
@@ -29,6 +30,16 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appbarConfiguration)
         bottomNavView.setupWithNavController(navController)
         toggleBottomNav()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun toggleBottomNav() {

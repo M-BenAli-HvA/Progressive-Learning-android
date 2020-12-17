@@ -12,14 +12,34 @@
     <string name="sign_up">Sign-up</string>
     <string name="login">Login</string>
     <string name="or">OR</string>
+    <string name="add">Add</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="learning_goals">Learning-goals</string>
+    <string name="learning_goal">Learning-goal</string>
     <!--    Learning-goal detail-->
     <string name="general">General</string>
     <string name="units">Units</string>
     <string name="progress">Progress</string>
+    <string name="summary">Summary</string>
+    <string name="completed">Completed</string>
+    <string name="resources">Resources</string>
+    <string name="url_resources">URL resources</string>
+    <string name="compose_resources">Compose resources</string>
+    <string name="new_resource">New resource</string>
+    <string name="title">Title</string>
+    <string name="url">URL</string>
+    <string name="url_type">URL-type</string>
     <string name="description">Description</string>
+    <string name="create">Create</string>
+    <string name="create_learning_goal">Create learning-goal</string>
+    <string name="create_unit">Create unit</string>
+    <string name="created_unit_message">Created unit</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Toast messages    -->
+    <string name="no_resources">This unit does not contain any resources</string>
+
 
 </resources>

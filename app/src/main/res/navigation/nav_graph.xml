@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_dashboard_to_collectionLearningGoalFragment"
             app:destination="@id/collectionLearningGoalFragment" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_createLearningGoalFragment"
+            app:destination="@id/createLearningGoalFragment" />
     </fragment>
 
     <fragment
@@ -69,6 +72,24 @@
 
         android:id="@+id/collectionLearningGoalFragment"
         android:name="com.example.progressivelearning_android.ui.CollectionLearningGoalFragment"
-        android:label="LearningGoalDetail" />
+        android:label="@string/learning_goal" >
+        <action
+            android:id="@+id/action_collectionLearningGoalFragment_to_createUnitFragment"
+            app:destination="@id/createUnitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createLearningGoalFragment"
+        android:name="com.example.progressivelearning_android.ui.CreateLearningGoalFragment"
+        android:label="@string/create_learning_goal"
+        tools:layout="@layout/fragment_create_learning_goal" >
+        <action
+            android:id="@+id/action_createLearningGoalFragment_to_navigation_dashboard"
+            app:destination="@id/navigation_dashboard" />
+    </fragment>
+    <fragment
+        android:id="@+id/createUnitFragment"
+        android:name="com.example.progressivelearning_android.ui.CreateUnitFragment"
+        android:label="@string/create_unit"
+        tools:layout="@layout/fragment_create_unit" />
 
 </navigation>

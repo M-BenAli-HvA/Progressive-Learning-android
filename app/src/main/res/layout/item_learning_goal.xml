@@ -1,7 +1,9 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="350dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="340dp"
     android:layout_height="75dp"
+    android:layout_margin="5dp"
     android:backgroundTint="@color/blue"
     android:clickable="true"
     android:focusable="true"
@@ -19,17 +21,19 @@
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:textStyle="bold"
-            android:gravity="bottom"
-            />
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            tools:ignore="RtlCompat" />
 
         <TextView
             android:id="@+id/tv_progress"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="125dp"
+            android:layout_marginStart="100dp"
+            android:gravity="center"
             android:background="@drawable/rounded_edges"
-            android:backgroundTint="@color/white"
-            android:gravity="center" />
+            android:backgroundTint="@color/white" />
+
     </LinearLayout>
 
 

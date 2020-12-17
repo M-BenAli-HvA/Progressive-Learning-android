@@ -18,8 +18,6 @@ import kotlinx.android.synthetic.main.fragment_collection_detail.*
 
 class CollectionLearningGoalFragment : Fragment() {
 
-    private val learningGoalViewModel: LearningGoalViewModel by activityViewModels()
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
