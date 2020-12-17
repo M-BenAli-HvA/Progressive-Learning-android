@@ -41,7 +41,7 @@ class CreateLearningGoalFragment : Fragment() {
         }
     }
 
-    fun createLearningGoal() {
+    private fun createLearningGoal() {
         val learningGoal = LearningGoal(et_title.text.toString(),
         et_description.text.toString())
         learningGoalViewModel.addLearningGoal(learningGoal)

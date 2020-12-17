@@ -60,7 +60,6 @@ class DashboardFragment : Fragment() {
         learningGoalViewModel.learningGoals.observe(viewLifecycleOwner, Observer {
             learningGoals.clear()
             learningGoals.addAll(it)
-            Log.d("Dashboard", learningGoals.toString())
             learningGoalAdapter.notifyDataSetChanged()
         })
     }

@@ -31,9 +31,10 @@ class LearningGoalViewModel(application: Application): AndroidViewModel(applicat
             } catch (e: Error) {
                 Log.d(TAG, e.message.toString())
             }
-
         }
     }
+
+//    fun getUserLearningGoals(user: User, )
 
     fun setLearningGoal(learningGoal: LearningGoal) {
         viewModelScope.launch {

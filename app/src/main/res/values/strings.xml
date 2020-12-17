@@ -18,6 +18,9 @@
     <string name="confirm_password">Confirm password</string>
     <string name="learning_goals">Learning-goals</string>
     <string name="learning_goal">Learning-goal</string>
+    <string name="session_keys_filename">sessionKeys</string>
+    <string name="authentication_token_key">Authentication-token</string>
+
     <!--    Learning-goal detail-->
     <string name="general">General</string>
     <string name="units">Units</string>
