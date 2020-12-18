@@ -23,6 +23,9 @@
         android:name="com.example.progressivelearning_android.ui.ExploreFragment"
         android:label="@string/explore_fragment_label"
         tools:layout="@layout/fragment_explore">
+        <action
+            android:id="@+id/action_navigation_explore_to_collectionLearningGoalFragment"
+            app:destination="@id/collectionLearningGoalFragment" />
     </fragment>
 
   <fragment

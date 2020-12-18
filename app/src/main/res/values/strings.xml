@@ -40,8 +40,12 @@
     <string name="create_unit">Create unit</string>
     <string name="created_unit_message">Created unit</string>
     <string name="cancel">Cancel</string>
+    <string name="subject">Subject</string>
 
-    <!-- Toast messages    -->
+    <!--    Explore -->
+    <string name="explore_description">Explore public learning-goals</string>
+
+    <!-- Toast messages   -->
     <string name="no_resources">This unit does not contain any resources</string>
 
 

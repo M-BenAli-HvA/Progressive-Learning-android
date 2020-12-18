@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.progressivelearning_android.api.ProgressiveLearningApi
 import com.example.progressivelearning_android.model.User
 import com.example.progressivelearning_android.services.AuthenticationApiService
+import com.example.progressivelearning_android.services.UserApiService
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.withTimeout
 import okhttp3.Headers
@@ -19,6 +20,7 @@ class UserRepository {
     private val TAG = "UserRepository"
     private val plApi: Retrofit = ProgressiveLearningApi.createApi()
     private val authenticationApiService = plApi.create(AuthenticationApiService::class.java)
+    private val userApiService = plApi.create(UserApiService::class.java)
     private var _loggedInUser: MutableLiveData<User?> = MutableLiveData()
     private var _authenticationToken: MutableLiveData<String?> =  MutableLiveData()
 
@@ -53,18 +55,26 @@ class UserRepository {
                 authenticationApiService.loginUser(user)
             }
             _loggedInUser.value = result.body()
+            val token: String? = result.headers().get("Authorization")?.split(" ")?.get(1)
+            _authenticationToken.value = token
+            _loggedInUser.value?.id?.let { getUser(it, token!!) }
+            Log.d(TAG, _loggedInUser.value.toString())
         } catch(e: Error) {
             Log.e(TAG, e.message.toString())
         }
+
     }
 
-    private fun getUser(user: User): User? {
-        var foundUser: User? = null
-        for (u in listOfUsers) {
-            if(user.email == u.email && user.password == u.password) {
-                foundUser = user
+    suspend fun getUser(userId: Int, authenticationToken: String) {
+        try {
+            val result = withTimeout(5_000) {
+                userApiService.getUser(userId, "Bearer $authenticationToken")
             }
+            _loggedInUser.value = result.body()
+            val token: String? = result.headers().get("Authorization")?.split(" ")?.get(1)
+            _authenticationToken.value = token
+        } catch(e: Error) {
+            Log.e(TAG, e.message.toString())
         }
-        return foundUser
     }
 }

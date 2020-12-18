@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.progressivelearning_android.model.LearningGoal
 import com.example.progressivelearning_android.model.Resource
 import com.example.progressivelearning_android.model.Unit
+import com.example.progressivelearning_android.model.User
 import com.example.progressivelearning_android.repository.LearningGoalRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +21,7 @@ class LearningGoalViewModel(application: Application): AndroidViewModel(applicat
     private val learningGoalRepository: LearningGoalRepository = LearningGoalRepository()
 
     val selectedLearningGoal: MutableLiveData<LearningGoal> = MutableLiveData()
-    val newUnit: MutableLiveData<Unit> = MutableLiveData()
+    private val newUnit: MutableLiveData<Unit> = MutableLiveData()
     val learningGoals: LiveData<ArrayList<LearningGoal>> = learningGoalRepository.learningGoals
 
 
@@ -34,7 +35,15 @@ class LearningGoalViewModel(application: Application): AndroidViewModel(applicat
         }
     }
 
-//    fun getUserLearningGoals(user: User, )
+    fun getUserLearningGoals(user: User, authenticationToken: String) {
+        viewModelScope.launch {
+            try {
+                learningGoalRepository.getUserLearningGoals(user.id!!, authenticationToken)
+            } catch (e: Error) {
+                Log.d(TAG, e.message.toString())
+            }
+        }
+    }
 
     fun setLearningGoal(learningGoal: LearningGoal) {
         viewModelScope.launch {
@@ -46,8 +55,14 @@ class LearningGoalViewModel(application: Application): AndroidViewModel(applicat
         }
     }
 
-    fun addLearningGoal(learningGoal: LearningGoal) {
-        learningGoalRepository.addLearningGoal(learningGoal)
+    fun createLearningGoal(learningGoal: LearningGoal) {
+        viewModelScope.launch {
+            try {
+                learningGoalRepository.createLearningGoal(learningGoal)
+            } catch(e: Error) {
+                Log.e(TAG, e.message!!)
+            }
+        }
     }
 
     fun deleteLearningGoal(learningGoal: LearningGoal) {

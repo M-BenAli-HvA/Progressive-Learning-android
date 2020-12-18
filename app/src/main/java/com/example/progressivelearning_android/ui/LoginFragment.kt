@@ -58,7 +58,7 @@ class LoginFragment : Fragment() {
                     putString(getString(R.string.authentication_token_key), token)
                     apply()
                 }
-                navController.navigate(R.id.action_navigation_login_to_navigation_explore )
+                navController.navigate(R.id.action_navigation_login_to_navigation_explore)
             }
         })
     }

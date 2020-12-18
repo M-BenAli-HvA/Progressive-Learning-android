@@ -38,9 +38,19 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                 userRepository.login(email, password)
             } catch(e: Error) {
                 Log.d(TAG, e.message.toString())
+
             }
         }
     }
 
+    fun getUser(userId: Int, authenticationToken: String) {
+        viewModelScope.launch {
+            try {
+                userRepository.getUser(userId, authenticationToken)
+            } catch(e: Error) {
+                Log.d(TAG, e.message.toString())
+            }
+        }
+    }
 
 }
