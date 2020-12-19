@@ -1,9 +1,11 @@
 package com.example.progressivelearning_android
 
+import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -20,6 +22,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val sharedPref = applicationContext.getSharedPreferences(
+                getString(R.string.session_keys_filename),
+                Context.MODE_PRIVATE)
+        sharedPref.edit().clear().apply()
         setSupportActionBar(findViewById(R.id.toolbar))
         navController = findNavController(R.id.nav_host_fragment)
         val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_nav)
@@ -36,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         when(item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-
             }
         }
         return super.onOptionsItemSelected(item)

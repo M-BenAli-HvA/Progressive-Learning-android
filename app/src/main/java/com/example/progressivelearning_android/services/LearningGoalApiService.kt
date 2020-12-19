@@ -14,5 +14,5 @@ interface LearningGoalApiService {
             : ArrayList<LearningGoal>
 
     @POST("learning-goals")
-    suspend fun createLearningGoals(@Body learningGoal: LearningGoal): LearningGoal
+    suspend fun createLearningGoal(@Body learningGoal: LearningGoal): LearningGoal
 }

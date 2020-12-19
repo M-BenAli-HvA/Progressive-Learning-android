@@ -69,7 +69,7 @@ class LearningGoalRepository {
         try  {
             val result=
                     withTimeout(5_000) {
-                        learningGoalApiService.createLearningGoals(learningGoal)
+                        learningGoalApiService.createLearningGoal(learningGoal)
                     }
             _learningGoals.value?.add(result)
         } catch(e: Error) {

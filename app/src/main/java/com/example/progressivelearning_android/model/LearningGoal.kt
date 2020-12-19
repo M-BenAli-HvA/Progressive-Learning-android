@@ -7,8 +7,11 @@ data class LearningGoal(
     @SerializedName("description") var description: String,
     @SerializedName("progress") var progress: Int = 0,
     @SerializedName("units") var units: ArrayList<Unit> = arrayListOf(),
+    @SerializedName("id") var id: Int? = null,
+    @SerializedName("user") var user: User? = null,
     @SerializedName("subject") var subject: Subject? = null,
-    @SerializedName("user") var user: User? = null
+    @SerializedName("subjectId") var subjectId: Int? = null,
+    @SerializedName("userId") var userId: Int? = null
 ) {
 
 

@@ -64,12 +64,18 @@ class DashboardFragment : Fragment() {
         observeSubjects()
         adapter = ArrayAdapter(requireContext(), R.layout.dropdown_list_item, subjects)
         (tip_subject_dropdown.editText as? AutoCompleteTextView)?.setAdapter(adapter)
-        (tip_subject_dropdown.editText as? AutoCompleteTextView)?.setOnItemClickListener { adapterView, view1, i, l ->
-            learningGoals.clear()
-            if(subjects[i].title == "All") {
+        (tip_subject_dropdown.editText as? AutoCompleteTextView)?.setOnItemClickListener { _, _, i, _ ->
+            if(subjects[i].id == 0) {
                 observeLearningGoals()
-            } else learningGoals.addAll(subjects[i].learningGoals)
-            Log.d(TAG, subjects[i].learningGoals.toString())
+            } else {
+                val subject = subjects[i]
+                val filteredLearningGoals: ArrayList<LearningGoal> = arrayListOf()
+                for (learningGoal in learningGoals) {
+                   if (subject.id != learningGoal.subjectId) filteredLearningGoals.add(learningGoal)
+                }
+                learningGoals.removeAll(filteredLearningGoals)
+            }
+            Log.d(TAG, learningGoals.toString())
             learningGoalAdapter.notifyDataSetChanged()
         }
     }
@@ -100,7 +106,7 @@ class DashboardFragment : Fragment() {
     private fun observeSubjects() {
         subjectsViewModel.subjects.observe(viewLifecycleOwner, Observer {
             subjects.clear()
-            subjects.add(Subject("All"))
+            subjects.add(Subject(id = 0, title = "All"))
             subjects.addAll(1, it)
             adapter.notifyDataSetChanged()
         })
@@ -110,7 +116,5 @@ class DashboardFragment : Fragment() {
         learningGoalViewModel.setLearningGoal(learningGoal)
         navController.navigate(R.id.action_navigation_dashboard_to_collectionLearningGoalFragment)
     }
-
-
 
 }

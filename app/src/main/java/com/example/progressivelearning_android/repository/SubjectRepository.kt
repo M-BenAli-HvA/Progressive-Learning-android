@@ -27,7 +27,6 @@ class SubjectRepository {
                     withTimeout(5_000) {
                         subjectApiService.getUserSubjects(userId, completeToken)
                     }
-            Log.d("lGRepository", result.toString())
             _subjects.value = result
         } catch(e: Error) {
             Log.d(TAG, e.message.toString())

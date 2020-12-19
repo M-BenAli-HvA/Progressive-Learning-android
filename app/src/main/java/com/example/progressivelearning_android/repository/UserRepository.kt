@@ -7,9 +7,7 @@ import com.example.progressivelearning_android.api.ProgressiveLearningApi
 import com.example.progressivelearning_android.model.User
 import com.example.progressivelearning_android.services.AuthenticationApiService
 import com.example.progressivelearning_android.services.UserApiService
-import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.withTimeout
-import okhttp3.Headers
 import retrofit2.Retrofit
 
 class UserRepository {
@@ -55,7 +53,7 @@ class UserRepository {
                 authenticationApiService.loginUser(user)
             }
             _loggedInUser.value = result.body()
-            val token: String? = result.headers().get("Authorization")?.split(" ")?.get(1)
+            val token: String? = result.headers()["Authorization"]?.split(" ")?.get(1)
             _authenticationToken.value = token
             _loggedInUser.value?.id?.let { getUser(it, token!!) }
             Log.d(TAG, _loggedInUser.value.toString())
@@ -71,8 +69,6 @@ class UserRepository {
                 userApiService.getUser(userId, "Bearer $authenticationToken")
             }
             _loggedInUser.value = result.body()
-            val token: String? = result.headers().get("Authorization")?.split(" ")?.get(1)
-            _authenticationToken.value = token
         } catch(e: Error) {
             Log.e(TAG, e.message.toString())
         }

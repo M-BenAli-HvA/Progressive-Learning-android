@@ -47,6 +47,11 @@ class ExploreFragment : Fragment() {
         observeLearningGoals()
     }
 
+    override fun onDetach() {
+        learningGoalViewModel.clearLearningGoals()
+        super.onDetach()
+    }
+
     private fun observeLearningGoals() {
         learningGoalViewModel.learningGoals.observe(viewLifecycleOwner, Observer {
             learningGoals.clear()
@@ -54,7 +59,6 @@ class ExploreFragment : Fragment() {
             learningGoalAdapter.notifyDataSetChanged()
         })
     }
-
 
     private fun onClick(learningGoal: LearningGoal) {
         learningGoalViewModel.setLearningGoal(learningGoal)

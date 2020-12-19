@@ -89,4 +89,8 @@ class LearningGoalViewModel(application: Application): AndroidViewModel(applicat
         }
     }
 
+    fun clearLearningGoals() {
+        learningGoals.value?.clear()
+    }
+
 }
