@@ -12,15 +12,15 @@ import retrofit2.Retrofit
 
 class UserRepository {
 
-   private var listOfUsers: ArrayList<User> = arrayListOf(
-        User(null, "mohamed_ben.ali@hotmail.com", "dummy1234", false)
+    private var listOfUsers: ArrayList<User> = arrayListOf(
+            User(null, "mohamed_ben.ali@hotmail.com", "dummy1234", false)
     )
     private val TAG = "UserRepository"
     private val plApi: Retrofit = ProgressiveLearningApi.createApi()
     private val authenticationApiService = plApi.create(AuthenticationApiService::class.java)
     private val userApiService = plApi.create(UserApiService::class.java)
     private var _loggedInUser: MutableLiveData<User?> = MutableLiveData()
-    private var _authenticationToken: MutableLiveData<String?> =  MutableLiveData()
+    private var _authenticationToken: MutableLiveData<String?> = MutableLiveData()
 
     val loggedInUser: LiveData<User?>
         get() = _loggedInUser
@@ -52,12 +52,14 @@ class UserRepository {
                 val user: User = User(null, email, password)
                 authenticationApiService.loginUser(user)
             }
-            _loggedInUser.value = result.body()
-            val token: String? = result.headers()["Authorization"]?.split(" ")?.get(1)
-            _authenticationToken.value = token
-            _loggedInUser.value?.id?.let { getUser(it, token!!) }
-            Log.d(TAG, _loggedInUser.value.toString())
-        } catch(e: Error) {
+            if (result.isSuccessful) {
+                _loggedInUser.value = result.body()
+                val token: String? = result.headers()["Authorization"]?.split(" ")?.get(1)
+                _authenticationToken.value = token
+                _loggedInUser.value?.id?.let { getUser(it, token!!) }
+                Log.d(TAG, _loggedInUser.value.toString())
+            }
+        } catch (e: Error) {
             Log.e(TAG, e.message.toString())
         }
 
@@ -69,7 +71,7 @@ class UserRepository {
                 userApiService.getUser(userId, "Bearer $authenticationToken")
             }
             _loggedInUser.value = result.body()
-        } catch(e: Error) {
+        } catch (e: Error) {
             Log.e(TAG, e.message.toString())
         }
     }

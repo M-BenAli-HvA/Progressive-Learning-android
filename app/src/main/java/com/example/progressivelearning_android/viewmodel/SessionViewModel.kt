@@ -7,10 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.progressivelearning_android.model.User
 import com.example.progressivelearning_android.repository.UserRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class SessionViewModel(application: Application) : AndroidViewModel(application) {
 

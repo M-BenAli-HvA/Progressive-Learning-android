@@ -12,11 +12,17 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.progressivelearning_android.R
 import com.example.progressivelearning_android.model.LearningGoal
 import com.example.progressivelearning_android.model.Unit
+import com.example.progressivelearning_android.repository.UnitRepository
 import com.example.progressivelearning_android.viewmodel.LearningGoalViewModel
 import kotlinx.android.synthetic.main.fragment_detail_units.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DetailUnitsFragment : Fragment() {
 
+    private val mainScope = CoroutineScope(Dispatchers.Main)
+    private val unitRepository: UnitRepository = UnitRepository()
     private val learningGoalViewModel: LearningGoalViewModel by activityViewModels()
     private lateinit var navController: NavController
     lateinit var learningGoal: LearningGoal
@@ -29,7 +35,6 @@ class DetailUnitsFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detail_units, container, false)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,6 +50,10 @@ class DetailUnitsFragment : Fragment() {
         override fun getItemCount(): Int = units.size
 
         override fun createFragment(position: Int): Fragment {
+            val unit = units[position]
+            mainScope.launch {
+                unit.resources = unitRepository.getUnitResources(unit.id!!)
+            }
             return ScreenSlideUnit(units[position])
         }
     }

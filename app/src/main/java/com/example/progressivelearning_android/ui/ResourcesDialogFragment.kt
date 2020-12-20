@@ -39,9 +39,6 @@ class ResourcesDialogFragment(unit: Unit) : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        _unit.resources.add(Resource(
-//                "https://en.wikipedia.org/wiki/Representational_state_transfer",
-//        URLType.WIKIPEDIA))
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_list_item, items)
         (tip_resource_type.editText as? AutoCompleteTextView)?.setAdapter(adapter)
         rv_resources.adapter = ResourceAdapter(_unit.resources)

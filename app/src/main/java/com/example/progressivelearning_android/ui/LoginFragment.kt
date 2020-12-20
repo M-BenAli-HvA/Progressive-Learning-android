@@ -12,12 +12,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.progressivelearning_android.R
-import com.example.progressivelearning_android.model.User
-import com.example.progressivelearning_android.repository.UserRepository
 import com.example.progressivelearning_android.viewmodel.SessionViewModel
-import kotlinx.android.synthetic.main.fragment_introduction.*
 import kotlinx.android.synthetic.main.fragment_login.*
-import okhttp3.internal.notify
 
 class LoginFragment : Fragment() {
 
@@ -75,6 +71,7 @@ class LoginFragment : Fragment() {
                 navController.navigate(R.id.action_navigation_login_to_navigation_explore)
             }
         })
+
     }
 
 }

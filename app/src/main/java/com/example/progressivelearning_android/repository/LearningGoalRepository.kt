@@ -19,9 +19,9 @@ class LearningGoalRepository {
             "https://en.wikipedia.org/wiki/Representational_state_transfer",
             URLType.WIKIPEDIA))
     private var units: ArrayList<Unit> = arrayListOf(Unit("History", false,
-    "History of REST", resources),
+    "History of REST", resources, null),
         Unit("Principles in-depth", false,
-                "Principles of REST"))
+                "Principles of REST", id = null))
 
     private val plApi: Retrofit = ProgressiveLearningApi.createApi()
     private val learningGoalApiService: LearningGoalApiService = plApi.create(LearningGoalApiService::class.java)
