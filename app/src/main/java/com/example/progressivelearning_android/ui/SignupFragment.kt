@@ -60,6 +60,7 @@ class SignupFragment : Fragment() {
                     putString(getString(R.string.authentication_token_key), token)
                     apply()
                 }
+                Log.d(TAG, token)
                 navController.navigate(R.id.action_navigation_signup_to_navigation_explore)
             }
         })

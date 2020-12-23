@@ -1,11 +1,8 @@
 package com.example.progressivelearning_android.ui
 
 import CustomTabHelper
-import android.content.DialogInterface
 import android.net.Uri
 import android.os.Bundle
-import android.text.Html
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,20 +11,15 @@ import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.text.HtmlCompat
 import com.example.progressivelearning_android.R
-import com.example.progressivelearning_android.model.Resource
 import com.example.progressivelearning_android.model.Unit
-import com.example.progressivelearning_android.repository.UnitRepository
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_screen_slide_unit.*
-import kotlinx.coroutines.*
 
 private const val TAG = "ScreenSlideUnit"
 
 class ScreenSlideUnit(var unit: Unit) : Fragment() {
 
-    private val mainScope = CoroutineScope(Dispatchers.Main)
     private var customTabHelper: CustomTabHelper = CustomTabHelper()
-
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +36,7 @@ class ScreenSlideUnit(var unit: Unit) : Fragment() {
 
     private fun initViews() {
         tv_unit_title.text = unit.title
-        tv_summary.text = HtmlCompat.fromHtml(unit.summary, HtmlCompat.FROM_HTML_MODE_COMPACT)
+        if (unit.summary != null) tv_summary.text = HtmlCompat.fromHtml(unit.summary, HtmlCompat.FROM_HTML_MODE_COMPACT)
         checkbox_completed.isChecked = unit.completed
         btn_resources.setOnClickListener {
             displayMaterialDialog()
@@ -52,8 +44,8 @@ class ScreenSlideUnit(var unit: Unit) : Fragment() {
     }
 
     private fun displayMaterialDialog() {
-        if (unit.resources != null) {
-            var array: Array<String?> = arrayOfNulls<String>(unit.resources.size)
+        if (unit.resources.size > 0) {
+            var array: Array<String?> = arrayOfNulls(unit.resources.size)
             for (i in array.indices) {
                 array[i] = unit.resources[i].url
             }

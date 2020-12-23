@@ -14,8 +14,9 @@ import com.example.progressivelearning_android.repository.LearningGoalRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 
-class LearningGoalViewModel(application: Application): AndroidViewModel(application) {
+class LearningGoalViewModel(application: Application) : AndroidViewModel(application) {
 
     private val TAG = "LearningGoalViewModel"
     private val learningGoalRepository: LearningGoalRepository = LearningGoalRepository()
@@ -49,7 +50,7 @@ class LearningGoalViewModel(application: Application): AndroidViewModel(applicat
         viewModelScope.launch {
             try {
                 selectedLearningGoal.value = learningGoal
-            } catch(e: Error) {
+            } catch (e: Error) {
                 Log.e(TAG, e.message!!)
             }
         }
@@ -59,7 +60,7 @@ class LearningGoalViewModel(application: Application): AndroidViewModel(applicat
         viewModelScope.launch {
             try {
                 learningGoalRepository.createLearningGoal(learningGoal)
-            } catch(e: Error) {
+            } catch (e: Error) {
                 Log.e(TAG, e.message!!)
             }
         }
@@ -72,8 +73,11 @@ class LearningGoalViewModel(application: Application): AndroidViewModel(applicat
     fun addNewUnit() {
         viewModelScope.launch {
             try {
-                selectedLearningGoal.value!!.units.add(newUnit.value!!)
-            } catch(e: Error) {
+                val learningGoal: LearningGoal = selectedLearningGoal.value!!
+                learningGoal.units.add(newUnit.value!!)
+                selectedLearningGoal.value = learningGoalRepository.updateLearningGoal(learningGoal)
+                Log.e(TAG, selectedLearningGoal.value!!.toString())
+            } catch (e: Error) {
                 Log.e(TAG, e.message!!)
             }
         }

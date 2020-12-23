@@ -23,7 +23,7 @@ class UnitRepository {
                     }
             resources.addAll(result)
         } catch(e: Error) {
-            Log.d(TAG, e.message.toString())
+            Log.e(TAG, e.message.toString())
         }
         return resources
     }

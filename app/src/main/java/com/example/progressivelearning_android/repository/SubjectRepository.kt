@@ -29,7 +29,7 @@ class SubjectRepository {
                     }
             _subjects.value = result
         } catch(e: Error) {
-            Log.d(TAG, e.message.toString())
+            Log.e(TAG, e.message.toString())
         }
         return _subjects.value
     }

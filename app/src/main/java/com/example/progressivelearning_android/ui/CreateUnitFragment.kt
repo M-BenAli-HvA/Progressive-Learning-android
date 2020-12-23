@@ -23,7 +23,7 @@ class CreateUnitFragment : Fragment() {
     private val learningGoalViewModel: LearningGoalViewModel by activityViewModels()
     private lateinit var navController: NavController
     private lateinit var learningGoal: LearningGoal
-    private var unit = Unit("", false, id = 0)
+    private var unit = Unit("", false, resources = arrayListOf(), id = 0, )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

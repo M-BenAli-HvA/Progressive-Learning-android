@@ -44,7 +44,7 @@ class LearningGoalRepository {
             Log.d("lGRepository", result.toString())
             _learningGoals.value = result
         } catch(e: Error) {
-            Log.d(TAG, e.message.toString())
+            Log.e(TAG, e.message.toString())
         }
         return _learningGoals.value
     }
@@ -60,7 +60,7 @@ class LearningGoalRepository {
             Log.d("lGRepository", result.toString())
             _learningGoals.value = result
         } catch(e: Error) {
-            Log.d(TAG, e.message.toString())
+            Log.e(TAG, e.message.toString())
         }
         return _learningGoals.value
     }
@@ -73,7 +73,22 @@ class LearningGoalRepository {
                     }
             _learningGoals.value?.add(result)
         } catch(e: Error) {
-            Log.d(TAG, e.message.toString())
+            Log.e(TAG, e.message.toString())
+        }
+    }
+
+    suspend fun updateLearningGoal(learningGoal: LearningGoal): LearningGoal {
+        val index = _learningGoals.value?.indexOf(learningGoal)
+        try  {
+            val result=
+                    withTimeout(5_000) {
+                        learningGoalApiService.updateLearningGoal(learningGoal.id!!, learningGoal)
+                    }
+            _learningGoals.value?.set(index!!, result)
+        } catch(e: Error) {
+            Log.e(TAG, e.message.toString())
+        } finally {
+          return _learningGoals.value!![index!!]
         }
     }
 

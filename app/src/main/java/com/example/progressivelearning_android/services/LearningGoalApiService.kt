@@ -13,6 +13,11 @@ interface LearningGoalApiService {
                                      @Header("Authorization") token: String)
             : ArrayList<LearningGoal>
 
+    @PUT("learning-goals/{id}")
+    suspend fun updateLearningGoal(
+            @Path("id") learningGoalId: Int,
+            @Body learningGoal: LearningGoal): LearningGoal
+
     @POST("learning-goals")
     suspend fun createLearningGoal(@Body learningGoal: LearningGoal): LearningGoal
 }

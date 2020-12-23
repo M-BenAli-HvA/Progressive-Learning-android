@@ -21,7 +21,7 @@ data class LearningGoal(
 
         for(unit in units) {
             if(unit.completed) {
-                totalPercentage =+ singleUnitPercentage
+                totalPercentage += singleUnitPercentage
             }
         }
         progress = totalPercentage

@@ -37,9 +37,8 @@ class UserRepository {
                     authenticationApiService.createUser(user)
                 }
                 _loggedInUser.value = result.body()
-                val token: String? = result.headers().get("Authorization")?.split(" ")?.get(1)
+                val token: String? = result.headers()["Authorization"]?.split(" ")?.get(1)
                 _authenticationToken.value = token
-//                Log.d(TAG, result.headers().get("Authorization")?.split(" ")?.get(1).toString())
             } catch (e: Error) {
                 Log.d("UserRepository", e.message.toString())
             }

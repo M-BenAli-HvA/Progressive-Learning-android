@@ -40,6 +40,7 @@ class DashboardFragment : Fragment() {
     private val sessionViewModel: SessionViewModel by activityViewModels()
 
     private var learningGoals: ArrayList<LearningGoal> = arrayListOf()
+    private var learningGoalsCopy: ArrayList<LearningGoal> = arrayListOf()
     private var subjects: ArrayList<Subject> = arrayListOf()
 
     private val learningGoalAdapter: LearningGoalAdapter = LearningGoalAdapter(learningGoals, ::onClick)
@@ -59,30 +60,35 @@ class DashboardFragment : Fragment() {
         navController = findNavController()
         sharedPref = requireContext().getSharedPreferences(
                 getString(R.string.session_keys_filename), Context.MODE_PRIVATE)
+
         initViews()
         observeLearningGoals()
         observeSubjects()
+
         adapter = ArrayAdapter(requireContext(), R.layout.dropdown_list_item, subjects)
         (tip_subject_dropdown.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+
         (tip_subject_dropdown.editText as? AutoCompleteTextView)?.setOnItemClickListener { _, _, i, _ ->
             if(subjects[i].id == 0) {
                 observeLearningGoals()
             } else {
                 val subject = subjects[i]
                 val filteredLearningGoals: ArrayList<LearningGoal> = arrayListOf()
+                learningGoals.clear()
+                learningGoals.addAll(learningGoalsCopy)
                 for (learningGoal in learningGoals) {
                    if (subject.id != learningGoal.subjectId) filteredLearningGoals.add(learningGoal)
                 }
                 learningGoals.removeAll(filteredLearningGoals)
             }
+
             Log.d(TAG, learningGoals.toString())
             learningGoalAdapter.notifyDataSetChanged()
         }
     }
 
-
     private fun initViews() {
-        val token: String = sharedPref.getString(getString(R.string.authentication_token_key), null)!!
+        val token: String = sessionViewModel.authenticationToken.value!!
         val user: User = sessionViewModel.loggedInUser.value!!
         learningGoalViewModel.getUserLearningGoals(user, token)
         subjectsViewModel.getUserSubjects(user.id!!, token)
@@ -98,7 +104,9 @@ class DashboardFragment : Fragment() {
     private fun observeLearningGoals() {
         learningGoalViewModel.learningGoals.observe(viewLifecycleOwner, Observer {
             learningGoals.clear()
+            learningGoalsCopy.clear()
             learningGoals.addAll(it)
+            learningGoalsCopy.addAll(it)
             learningGoalAdapter.notifyDataSetChanged()
         })
     }
