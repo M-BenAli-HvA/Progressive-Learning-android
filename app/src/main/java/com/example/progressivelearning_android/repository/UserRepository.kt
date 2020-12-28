@@ -36,9 +36,11 @@ class UserRepository {
                 val result = withTimeout(5_000) {
                     authenticationApiService.createUser(user)
                 }
-                _loggedInUser.value = result.body()
-                val token: String? = result.headers()["Authorization"]?.split(" ")?.get(1)
-                _authenticationToken.value = token
+                if (result.isSuccessful) {
+                    _loggedInUser.value = result.body()
+                    val token: String? = result.headers()["Authorization"]?.split(" ")?.get(1)
+                    _authenticationToken.value = token
+                }
             } catch (e: Error) {
                 Log.d("UserRepository", e.message.toString())
             }
